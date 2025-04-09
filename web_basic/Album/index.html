@@ -1,4 +1,4 @@
-<!-- 0408 fetch 적용해 데이터 가져오기  -->
+<!-- 0409 firestore 연결  -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,7 +93,6 @@
 
         };
 
-
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -115,6 +114,7 @@
             // 카드 붙이기
             await addDoc(collection(db, "albums"), doc);
             alert('저장 완료!');
+            // 새로고침
             window.location.reload();
         })
 
@@ -127,12 +127,14 @@
             let mise = data['RealtimeCityAir']['row'][0]['IDEX_NM']
             $('#msg').text(mise);
         })
+
         // 카드 갖고오기
         let docs = await getDocs(collection(db, "albums"));
         docs.forEach((doc) => {
             let row = doc.data();
             // console.log(row);
 
+            // 카드 만들기 
             let image = row['image'];
             let title = row['title'];
             let content =row['content'];
